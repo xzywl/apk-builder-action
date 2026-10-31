@@ -1,0 +1,95 @@
+/* 黄果TV PC 版 —— 仿官网播放页主题（#0d0d0d / #161616 / #22222a / 主色 #ffd21c） */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --bg: #0d0d0d; --card: #161616; --line: #22222a; --accent: #ffd21c; --txt: #fff; --dim: #c7c7cc; }
+body { background: var(--bg); color: var(--txt); font-family: "Microsoft YaHei", system-ui, sans-serif; min-height: 100vh; }
+header { display: flex; align-items: center; gap: 18px; padding: 14px 26px; background: var(--bg); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid rgba(255,255,255,.08); flex-wrap: wrap; }
+.logo { font-size: 24px; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
+.logo span { color: #fff; }
+nav { display: flex; gap: 22px; flex-wrap: wrap; flex: 1; }
+nav button { background: none; border: 0; border-bottom: 2px solid transparent; color: #7a7a7a; padding: 12px 0 10px; cursor: pointer; font-size: 15px; transition: color .18s, border-color .18s; }
+nav button:hover { color: #fff; }
+nav button.on { color: var(--accent); font-weight: 600; border-bottom-color: var(--accent); }
+.search { display: flex; gap: 8px; }
+.search input { background: var(--card); border: 1px solid var(--line); color: var(--txt); padding: 8px 12px; border-radius: 8px; width: 220px; font-size: 14px; }
+.search button { background: var(--accent); border: 0; color: #1a1200; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.status { padding: 10px 26px; color: var(--dim); font-size: 13px; min-height: 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 20px; padding: 6px 26px 40px; }
+.card { background: var(--card); border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform .15s, box-shadow .15s; border: 1px solid rgba(255,255,255,.06); }
+.card:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0,0,0,.5); border-color: var(--accent); }
+.card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; background: #111; }
+.card .t { padding: 10px 12px 2px; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card .r { padding: 0 12px 12px; font-size: 12px; color: var(--dim); }
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.78); display: flex; align-items: center; justify-content: center; z-index: 50; }
+.hidden { display: none !important; }
+.modal-box { background: var(--card); width: min(860px, 94vw); max-height: 90vh; overflow: auto; border-radius: 14px; padding: 26px; position: relative; border: 1px solid var(--line); }
+.close { position: absolute; top: 14px; right: 16px; background: #1c1c1c; border: 1px solid var(--line); color: var(--txt); width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 15px; }
+.d-top { display: flex; gap: 22px; }
+.d-top img { width: 220px; aspect-ratio: 3/4; object-fit: cover; border-radius: 10px; background: #111; }
+.d-info { flex: 1; }
+.d-info h2 { font-size: 22px; margin-bottom: 10px; }
+.d-info p { color: var(--dim); font-size: 14px; line-height: 1.6; max-height: 130px; overflow: auto; }
+.d-btns { margin-top: 16px; display: flex; gap: 10px; }
+.d-btns button { padding: 10px 18px; border-radius: 8px; border: 1px solid var(--line); background: #1c1c1c; color: var(--txt); cursor: pointer; font-size: 14px; }
+.d-btns .primary { background: var(--accent); color: #1a1200; border: 0; font-weight: 700; }
+.eps { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 8px; }
+.eps button { padding: 9px 0; background: #1c1c1c; border: 1px solid var(--line); color: var(--txt); border-radius: 7px; cursor: pointer; font-size: 13px; }
+.eps button.cur { background: var(--accent); color: #1a1200; border-color: var(--accent); font-weight: 700; }
+
+/* ---------- 播放器：仿官网 hg-web-play（左播放器 + 右侧选集） ---------- */
+.pl-wrap { display: flex; gap: 24px; width: min(1280px, 96vw); max-height: 94vh; }
+.pl-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pl-titlebar { display: flex; align-items: baseline; gap: 8px; min-width: 0; padding: 11px 19px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px; }
+.pl-titlebar h2 { font-size: 16px; font-weight: 400; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pl-titlebar .ep { flex: none; font-size: 16px; color: var(--accent); }
+.pl-titlebar .close { position: static; width: 30px; height: 30px; margin-left: auto; flex: none; }
+.pl-viewport { position: relative; border-radius: 12px; overflow: hidden; background: #000; }
+.pl-viewport video { width: 100%; max-height: 70vh; aspect-ratio: 9/16; background: #000; display: block; }
+.pl-actions { display: flex; gap: 12px; margin-top: 12px; }
+.pl-actions button { flex: 1 1 0; height: 48px; min-width: 0; white-space: nowrap; background: var(--card); border: 1px solid var(--line); border-radius: 8px; color: #fff; font-size: 14px; cursor: pointer; }
+.pl-actions button:hover { border-color: var(--accent); color: var(--accent); }
+.pl-actions button:disabled { opacity: .55; cursor: wait; }
+.pl-actions .switch { flex: 1 1 0; display: flex; align-items: center; justify-content: center; gap: 8px; height: 48px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; color: #fff; font-size: 14px; cursor: pointer; }
+.pl-actions .switch input { width: 34px; height: 19px; appearance: none; background: #3a3a3f; border-radius: 999px; position: relative; cursor: pointer; transition: background .2s; }
+.pl-actions .switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 15px; height: 15px; border-radius: 50%; background: #fff; transition: left .2s; }
+.pl-actions .switch input:checked { background: var(--accent); }
+.pl-actions .switch input:checked::after { left: 17px; background: #1a1200; }
+.pl-side { flex: 0 0 300px; display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 19px 21px; min-height: 0; }
+.pl-side-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.pl-side-head h3 { font-size: 17px; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pl-side-head span { flex: none; font-size: 12px; color: var(--dim); }
+.pl-eps { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 10px; align-content: start; scrollbar-width: thin; scrollbar-color: #3a3a3f transparent; }
+.pl-eps::-webkit-scrollbar { width: 4px; }
+.pl-eps::-webkit-scrollbar-thumb { background: #3a3a3f; border-radius: 999px; }
+.pl-eps button { position: relative; padding: 9px 0; background: #1c1c1c; border: 1px solid var(--line); color: var(--txt); border-radius: 7px; cursor: pointer; font-size: 13px; }
+.pl-eps button:hover { border-color: var(--accent); color: var(--accent); }
+.pl-eps button.cur { background: var(--accent); color: #1a1200; border-color: var(--accent); font-weight: 700; }
+.pl-eps button.cached::after { content: "✓"; position: absolute; top: 1px; right: 4px; font-size: 10px; font-weight: 700; color: var(--accent); }
+.pl-eps button.cur.cached::after { color: #1a1200; }
+.pl-cache-info { font-size: 12px; color: var(--dim); margin: -6px 0 12px; }
+.pl-cache-info:empty { display: none; }
+.pl-cache-dir { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; min-width: 0; }
+.pl-cache-dir button { flex: none; padding: 5px 10px; background: #1c1c1c; border: 1px solid var(--line); border-radius: 6px; color: var(--dim); font-size: 12px; cursor: pointer; }
+.pl-cache-dir button:hover { border-color: var(--accent); color: var(--accent); }
+.pl-cache-dir span { flex: 1; min-width: 0; font-size: 11px; color: #7a7a7a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; direction: rtl; text-align: left; }
+
+/* 联播倒计时浮层（淡入上浮） */
+.pl-next { position: absolute; right: 16px; bottom: 76px; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: rgba(17,17,17,.92); border: 1px solid var(--line); border-radius: 10px; font-size: 13px; visibility: hidden; opacity: 0; transform: translateY(12px); transition: opacity .28s ease, transform .28s ease, visibility .28s; }
+.pl-next.show { visibility: visible; opacity: 1; transform: translateY(0); }
+.pl-next .cd { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--accent); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; }
+.pl-next button { padding: 7px 12px; background: var(--accent); color: #1a1200; border: 0; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; transition: filter .15s; }
+.pl-next button:hover { filter: brightness(1.12); }
+.pl-next button.cancel { background: transparent; color: var(--dim); border: 1px solid var(--line); }
+
+/* 方向键：倍速角标（>1x 常驻）+ 操作提示浮层（淡入淡出 + 轻缩放） */
+.pl-speed { position: absolute; top: 12px; left: 12px; z-index: 6; padding: 4px 10px; background: rgba(0,0,0,.72); border: 1px solid var(--accent); border-radius: 999px; color: var(--accent); font-size: 13px; font-weight: 700; pointer-events: none; opacity: 0; transform: translateY(-8px); transition: opacity .25s ease, transform .25s ease; }
+.pl-speed.show { opacity: 1; transform: translateY(0); }
+.pl-osd { position: absolute; left: 50%; top: 44%; transform: translate(-50%,-50%) scale(.82); z-index: 7; padding: 14px 30px; background: rgba(0,0,0,.78); border-radius: 14px; color: #fff; font-size: 20px; font-weight: 700; letter-spacing: 1px; pointer-events: none; white-space: nowrap; opacity: 0; transition: opacity .18s ease, transform .22s cubic-bezier(.34,1.4,.44,1); text-align: center; }
+.pl-osd.show { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+.pl-osd .big { display: block; font-size: 36px; color: var(--accent); text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+.pl-osd .sub { display: block; font-size: 13px; font-weight: 400; color: #ddd; margin-top: 3px; letter-spacing: 4px; }
+.pl-osd.small { font-size: 14px; font-weight: 400; color: var(--dim); }
+@media (max-width: 900px) {
+  .pl-wrap { flex-direction: column; overflow: auto; }
+  .pl-side { flex: none; max-height: 220px; }
+  .pl-viewport video { aspect-ratio: auto; max-height: 56vh; }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>黄果TV</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="logo">黄果<span>TV</span></div>
+  <nav id="tabs"></nav>
+  <div class="search">
+    <input id="kw" placeholder="搜索剧名…" autocomplete="off">
+    <button id="go">搜索</button>
+  </div>
+</header>
+<main>
+  <div id="status" class="status"></div>
+  <div id="grid" class="grid"></div>
+</main>
+
+<div id="detail" class="modal hidden">
+  <div class="modal-box">
+    <button class="close" id="dclose">✕</button>
+    <div class="d-top">
+      <img id="d-pic" alt="">
+      <div class="d-info">
+        <h2 id="d-title"></h2>
+        <p id="d-desc"></p>
+        <div class="d-btns">
+          <button id="d-play" class="primary">▶ 播放</button>
+          <button id="d-dl">⬇ 下载本集</button>
+          <button id="d-fav">☆ 收藏</button>
+        </div>
+      </div>
+    </div>
+    <div id="d-eps" class="eps"></div>
+  </div>
+</div>
+
+<div id="player" class="modal hidden">
+  <div class="pl-wrap">
+    <div class="pl-main">
+      <div class="pl-titlebar"><h2 id="p-title"></h2><span class="ep" id="p-ep"></span><button class="close" id="pclose">✕</button></div>
+      <div class="pl-viewport">
+        <video id="video" controls playsinline></video>
+        <div id="p-speed" class="pl-speed hidden"></div>
+        <div id="p-osd" class="pl-osd hidden"></div>
+        <div id="p-next" class="pl-next">
+          <span id="pn-text">下一集</span><span class="cd" id="pn-cd">5</span>
+          <button id="pn-go">立即播放</button><button id="pn-cancel" class="cancel">取消</button>
+        </div>
+      </div>
+      <div class="pl-actions">
+        <button id="a-prev">⏮ 上一集</button>
+        <button id="a-next">下一集 ⏭</button>
+        <button id="p-mp4">转MP4</button>
+        <button id="a-dl">⬇ 下载本集</button>
+        <label class="switch"><input type="checkbox" id="a-auto" checked><span>自动联播</span></label>
+        <label class="switch"><input type="checkbox" id="a-cache" checked><span>自动缓存</span></label>
+      </div>
+    </div>
+    <aside class="pl-side">
+      <div class="pl-side-head"><h3 id="p-side-title">选集</h3><span id="p-side-count"></span></div>
+      <div id="p-cache-info" class="pl-cache-info"></div>
+      <div class="pl-cache-dir"><button id="p-cdir">📁 缓存目录</button><span id="p-cdir-path" title=""></span></div>
+      <div class="pl-eps" id="p-eps"></div>
+    </aside>
+  </div>
+</div>
+
+<script src="hls.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

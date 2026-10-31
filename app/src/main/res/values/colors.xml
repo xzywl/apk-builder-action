@@ -1,0 +1,9 @@
+<resources>
+    <color name="bg">#0B0E14</color>
+    <color name="card">#161C26</color>
+    <color name="card_focus">#1F2A3A</color>
+    <color name="accent">#FFB300</color>
+    <color name="text">#E8EAF0</color>
+    <color name="text_sub">#93A0B4</color>
+    <color name="placeholder">#232B38</color>
+</resources>
