@@ -1,0 +1,40 @@
+# 签名与本地配置（密钥不入库）
+*.jks
+keystore.properties
+local.properties
+
+# 构建产物与缓存
+.gradle/
+.kotlin/
+build/
+app/build/
+pc/cache/
+pc/config.json
+huangguoTV-v*.apk
+
+# node
+desktop/node_modules/
+
+# 本机调试/抓包临时文件
+.t_*
+.probe/
+.reference/
+.build*.log
+.check-proxy.cmd
+.chk_*.txt
+.dns.txt
+.keystore.log
+.netstat.txt
+.proxyinfo.txt
+.sig*.txt
+.toolcheck.txt
+.verify-sig*.cmd
+.vpage.html
+Win32_Process
+
+# 与项目无关的本机记录
+docs/codex-connection-fix.md
+
+# desktop 本机杂物
+desktop/.k.log
+desktop/.launch.js
